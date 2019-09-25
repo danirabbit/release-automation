@@ -1,0 +1,19 @@
+name: CI
+
+on: [release]
+  branches:
+    'deb-packaging*'
+
+jobs:
+  release:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update Changelog
+      run: |
+        dch -mv 1.0.1 changelog contents
+        dch -r bionic
+    - name: Commit Changes
+      run: git commit -am "Create a New Release"
